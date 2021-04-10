@@ -11,6 +11,9 @@
 |
 */
 
-Route::prefix('product')->group(function() {
-    Route::get('/', 'ProductController@index');
-});
+// Route::prefix('product')->group(function() {
+//     Route::get('/', 'ProductController@index');
+// });
+
+//todo: neu nhu viet cai nay trong prefix product thi sao
+Route::resource('products', 'ProductController');

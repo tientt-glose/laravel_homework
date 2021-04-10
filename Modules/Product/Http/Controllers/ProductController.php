@@ -2,9 +2,10 @@
 
 namespace Modules\Product\Http\Controllers;
 
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Product\Entities\Product;
+use Illuminate\Contracts\Support\Renderable;
 
 class ProductController extends Controller
 {
@@ -14,7 +15,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('product::index');
+        $products = Product::all();
+        //todo cu phap
+        return view('product::products.index', compact('products'));
     }
 
     /**
@@ -23,7 +26,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('product::create');
+        return view('product::products.create');
     }
 
     /**
@@ -33,7 +36,16 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //todo: con cach luu nao khac ko
+        $product = new Product;
+
+        $product->name = $request->name;
+        $product->quantity = $request->quantity;
+        $product->category = implode(',',$request->category);
+
+        $product->save();
+
+        return redirect(route('products.index'));
     }
 
     /**
